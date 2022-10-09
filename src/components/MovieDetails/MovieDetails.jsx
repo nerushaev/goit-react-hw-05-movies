@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import './MovieDetails.css'
 import { Outlet } from 'react-router';
+import Loader from 'components/Loader/Loader';
 
 const getActiveClass = ({ isActive }) => {
   return isActive ? `film-link active` : `film-link`;
@@ -35,11 +36,13 @@ export default function MovieDetails() {
 
   const navigate = useNavigate();
 
-  const goBack = () => navigate(-1);
+  const goBack = () => navigate("/");
 
   return (
     <main className="wrapper">
-    <div className="film">
+      <div className="film">
+        {loading && <Loader />}
+        {error && <p>Sorry, movie not found</p>}
       <button className="go-back" onClick={goBack}>Go back</button>
       {state &&
         <div className="film-wrapper">

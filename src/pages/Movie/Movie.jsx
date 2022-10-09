@@ -3,6 +3,8 @@ import { fetchQueryMovie } from 'api/api';
 import MoviesItem from 'components/MoviesItem/MoviesItem';
 import { useSearchParams } from 'react-router-dom';
 import './Movie.css'
+import Loader from 'components/Loader/Loader';
+
 export default function Movie() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -13,20 +15,39 @@ export default function Movie() {
     const updateQueryString = (name) => {
     const nextParams = name !== "" ? { name } : {};
     setSearchParams(nextParams);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    };
+  
+  useEffect(() => {
+    const fetchMovie = async () => {
+      setLoading(true)
     try {
       const data = await fetchQueryMovie(productName);
       setMovies(data.results)
     } catch (e) {
       setError(e)
     } finally {
-      setLoading(true)
+      setLoading(false)
+    }
+    }
+    if (productName) {
+      fetchMovie();
+    }
+  }, [productName])
+
+  let notFound = false;
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true)
+    try {
+      const data = await fetchQueryMovie(productName);
+      setMovies(data.results)
+    } catch (e) {
+      setError(e)
+    } finally {
+      setLoading(false)
     }
   }
-  
 
   return (
     <main className="wrapper">
@@ -37,7 +58,10 @@ export default function Movie() {
         </form>
       </div>
       <ul className="movies-list">
+        {loading && <Loader />}
         {movies && <MoviesItem data={movies} />}
+        {error && <p>An unexpected error occurred</p>}
+        {notFound && <p>Sorry, movie not found</p>}
       </ul>
     </main>
   )
