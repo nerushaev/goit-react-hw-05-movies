@@ -5,8 +5,6 @@ const BASE_URL = 'https://api.themoviedb.org/3';
 
 const TRENDING_MOVIE = '/trending/movie/week';
 const QUERY_MOVIE = '/search/movie';
-const ACTORS = "/get-movie-credits";
-const REWIEV = '/get-movie-reviews';
 
 export const fetchPopularMovie = async () => {
     const { data } = await axios.get(`${BASE_URL}${TRENDING_MOVIE}?api_key=${API_KEY}`)
