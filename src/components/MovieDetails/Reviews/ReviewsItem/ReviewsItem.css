@@ -1,0 +1,9 @@
+.reviews-item {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.line:not(:last-child) {
+  display: block;
+  border-top: solid 1px black;
+}

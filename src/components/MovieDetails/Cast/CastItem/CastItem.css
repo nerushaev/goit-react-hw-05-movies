@@ -1,0 +1,14 @@
+.cast-item {
+  width: 300px;
+  padding: 20px;
+  list-style: none;
+}
+
+.cast-img {
+  width: 280px;
+}
+
+.cast-list {
+  display: flex;
+  flex-wrap: wrap;
+}

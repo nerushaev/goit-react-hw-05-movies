@@ -1,0 +1,48 @@
+.go-back {
+  margin-bottom: 20px;
+}
+
+.film {
+  margin-bottom: 20px;
+}
+
+.film-wrapper {
+  display: flex;
+}
+
+.film-poster {
+  height: 380px;
+  margin-right: 20px;
+}
+
+.film-description {
+  width: 280px;
+}
+
+.film-description__span {
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-weight: 700;
+  color: orange;
+  background-color: lightslategray;
+}
+
+.link-cast {
+  margin-right: 10px;
+}
+
+.film-link {
+  padding: 5px 10px;
+  text-decoration: none;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.film-link:not(:last-child) {
+  margin-right: 14px;
+}
+
+.active {
+  color: white;
+}
