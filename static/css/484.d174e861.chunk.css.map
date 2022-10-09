@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/484.d174e861.chunk.css","mappings":"AAAA,YAGE,qBAAuB,CACvB,qBAAuB,CACvB,iBAAkB,CAHlB,gBAAiB,CADjB,gBAKF","sources":["pages/Movie/Movie.css"],"sourcesContent":[".search-btn {\n  padding: 2px 10px;\n  margin-left: 10px;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 2px;\n}\n"],"names":[],"sourceRoot":""}
