@@ -9,6 +9,7 @@ export default function Movie() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [search, setSearch] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const productName = searchParams.get("name") ?? "";
 
@@ -20,27 +21,33 @@ export default function Movie() {
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true)
-    try {
-      const data = await fetchQueryMovie(productName);
-      setMovies(data.results)
-    } catch (e) {
-      setError(e)
-    } finally {
-      setLoading(false)
-    }
+      try {
+        const data = await fetchQueryMovie(productName);
+        setMovies(data.results)
+      } catch (e) {
+        setError(e)
+      } finally {
+        setLoading(false)
+      }
     }
     if (productName) {
       fetchMovie();
     }
-  }, [productName])
+// eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   let notFound = false;
+
+  const handleChange = (e) => {
+    setSearch(e.target.value);
+    updateQueryString(e.target.value)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true)
     try {
-      const data = await fetchQueryMovie(productName);
+      const data = await fetchQueryMovie(search);
       setMovies(data.results)
     } catch (e) {
       setError(e)
@@ -53,7 +60,7 @@ export default function Movie() {
     <main className="wrapper">
       <div>
         <form onSubmit={handleSubmit}>
-      <input onChange={(e) => updateQueryString(e.target.value)} type="text" name="search" value={productName}/>
+      <input onChange={handleChange} type="text" name="search" value={productName}/>
       <button className="search-btn" type="submit">Search</button>
         </form>
       </div>
