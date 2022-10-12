@@ -21,6 +21,7 @@ export default function Movie() {
   useEffect(() => {
     const fetchMovie = async () => {
       setLoading(true)
+      setSearch(productName)
       try {
         const data = await fetchQueryMovie(productName);
         setMovies(data.results)
@@ -33,18 +34,11 @@ export default function Movie() {
     if (productName) {
       fetchMovie();
     }
-// eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  let notFound = false;
-
-  const handleChange = (e) => {
-    setSearch(e.target.value);
-    updateQueryString(e.target.value)
-  }
+  }, [productName]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    updateQueryString(e.target.elements.search.value)
     setLoading(true)
     try {
       const data = await fetchQueryMovie(search);
@@ -56,19 +50,23 @@ export default function Movie() {
     }
   }
 
+  const handleChange = (e) => {
+    setSearch(e.target.value)
+  }
+  
   return (
     <main className="wrapper">
       <div>
         <form onSubmit={handleSubmit}>
-      <input onChange={handleChange} type="text" name="search" value={productName}/>
+          <input onChange={handleChange} type="text" name="search" value={search}/>
       <button className="search-btn" type="submit">Search</button>
         </form>
       </div>
       <ul className="movies-list">
         {loading && <Loader />}
         {movies && <MoviesItem data={movies} />}
-        {error && <p>An unexpected error occurred</p>}
-        {notFound && <p>Sorry, movie not found</p>}
+        {movies.length === 0 && <p>Sorry, movie not found</p>}
+        {error && <p>Unexpected error...</p>}
       </ul>
     </main>
   )
